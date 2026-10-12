@@ -1,23 +1,24 @@
 package com.example.wonit.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-// Controller 계층은 사용자의 요청을 받아서 화면에 돌려주는 역할
-// 스프링의 어노테이션으로 등록해놓은 클래스들을 Bean
-@RestController   //
-@RequestMapping("/hello")
+// 라우팅 기능: 사용자의 요청(Request)을 주소줄과 매핑해서 서버에 전달하는 역할
+@RestController
+@RequestMapping("/hello")  // localhost:8080/hello
 public class HelloController {
 
-    @GetMapping
-    public String sayHello() {
-        return "HELLO!!!!!!!";
-    }
+//    @GetMapping
+//    public String sayHello() {
+//        return "Hello, Spring Boot!";
+//    }
 
-    @GetMapping("/{id}")   //
-    public String sayHello(@PathVariable String id) {
-        return "HELLO!!!!!!!" + id;
+//    @GetMapping("/{path}")  // localhost:8080/hello/경로변수(PathVarible)
+//    public String sayHello(@PathVariable String path) {
+//        return "Hello, Spring Boot!" + path;
+//    }
+
+    @GetMapping // localhost:8080/hello?name=값
+    public String sayHello(@RequestParam(value="name") String name) {
+        return "Hello, Spring Boot!" + name;
     }
 }
