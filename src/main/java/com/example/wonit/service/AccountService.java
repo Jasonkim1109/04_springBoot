@@ -26,9 +26,22 @@ public class AccountService {
         return accountRepository.findByAccountNo(accountNo);
     }
 
+
     // 하나의 계좌 정보를 리턴 -> 받아서 Account 자료형으로 받어나 예외를 일으키는 함수
     public Account getAccount(String accountNo) {
         return findOne(accountNo).orElseThrow(() -> new AccountNotFoundException(accountNo + "계좌를 찾을 수 없습니다"));
     }
 
+    // 실제동작을 아래 함수에 작성해 줍니다. db에서 모든 계좌를 조회해서
+    public List<String> normalAccountNos() {
+        return accountRepository.findAll()
+                .stream().filter(account -> account.getStatus().equals("정상"))
+                .map(Account::getAccountNo).toList();  // .mapToLong(Account::getBalance).sum();
+    }
+
+    public long savingBalanceSum() {
+        return accountRepository.findAll()
+                .stream().filter(account -> account.getAccountType().equals("적금"))
+                .mapToLong(Account::getBalance).sum();
+    }
 }

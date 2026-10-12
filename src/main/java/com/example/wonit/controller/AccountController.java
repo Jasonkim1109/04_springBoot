@@ -31,6 +31,7 @@ public class AccountController {
         return accountService.findAll().stream().map(AccountResponse::from).toList();
     }
 
+
     // 특정 계좌번호의 세부 정보를 조회  localhost:8080/api/accounts/1002-345-678901
     @GetMapping("/{accountNo}")
     public AccountResponse findOne(@PathVariable("accountNo") String accountNo){
@@ -38,8 +39,18 @@ public class AccountController {
         return AccountResponse.from(accountService.getAccount(accountNo));
     }
 
-    // 계좌 전체를 조회해서 그중에 '정상' 계좌만 출력
+    // 계좌 전체를 조회해서 그중에 '정상' 계좌만 계좌번호만 출력
+    @GetMapping("/report1")
+    public List<String> normalAccountNos() {
+        return accountService.normalAccountNos();
+    }
 
     // 전체 계좌중에 account_type이 '적금'인 경우만 금액을 모두 더해서 리턴
+    // /api/accounts/report2 라는 주소로
+    @GetMapping("/report2")
+    public long savingBalanceSum() {
+        return accountService.savingBalanceSum();
+    }
+
 
 }
