@@ -4,6 +4,7 @@ import com.example.wonit.model.Account;
 import com.example.wonit.sevice.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,8 @@ public class AccountController {
 
     // 특정 계좌번호의 세부 정보를 조회  localhost:8080/api/accounts/1002-345-678901
     @GetMapping("/{accountNo}")
-    public
+    public Account findOne(@PathVariable("accountNo") String accountNo){
+        return accountService.findOne(accountNo);
+    }
 
 }
