@@ -1,7 +1,8 @@
 package com.example.wonit.controller;
 
+import com.example.wonit.dto.AccountResponse;
 import com.example.wonit.model.Account;
-import com.example.wonit.sevice.AccountService;
+import com.example.wonit.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +24,22 @@ public class AccountController {
     // 모든 accounts를 조회
     // jpa의 규칙은 Repository에서만 영향을 미칩니다.
     @GetMapping
-    public List<Account> findAll() {
-        return accountService.findAll();
+    public List<AccountResponse> findAll() {
+    //public List<Account> findAll() {
+        // stream().filter() : 값이 true인 것만 반환
+        // stream().map() : 모든 값에 같은 메서드를 일괄 적용
+        return accountService.findAll().stream().map(AccountResponse::from).toList();
     }
 
     // 특정 계좌번호의 세부 정보를 조회  localhost:8080/api/accounts/1002-345-678901
     @GetMapping("/{accountNo}")
-    public Account findOne(@PathVariable("accountNo") String accountNo){
-        return accountService.findOne(accountNo);
+    public AccountResponse findOne(@PathVariable("accountNo") String accountNo){
+    // public Account findOne(@PathVariable("accountNo") String accountNo){
+        return AccountResponse.from(accountService.getAccount(accountNo));
     }
+
+    // 계좌 전체를 조회해서 그중에 '정상' 계좌만 출력
+
+    // 전체 계좌중에 account_type이 '적금'인 경우만 금액을 모두 더해서 리턴
 
 }

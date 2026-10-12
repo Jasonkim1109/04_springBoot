@@ -1,11 +1,13 @@
-package com.example.wonit.sevice;
+package com.example.wonit.service;
 
+import com.example.wonit.exception.*;
 import com.example.wonit.model.Account;
 import com.example.wonit.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 // Controller와만 통신하며 요청에 대한 실제 로직을 담당
 @Service
@@ -19,9 +21,14 @@ public class AccountService {
         return accountRepository.findAll();
     }
 
-    // 하나의 계좌 정보를 리턴
-    public Account findOne(String accountNo) {
+    // 하나의 계좌 정보를 repo에서 받아서 리턴하거나 NPE을 막아주는 함수
+    public Optional<Account> findOne(String accountNo) {
         return accountRepository.findByAccountNo(accountNo);
+    }
+
+    // 하나의 계좌 정보를 리턴 -> 받아서 Account 자료형으로 받어나 예외를 일으키는 함수
+    public Account getAccount(String accountNo) {
+        return findOne(accountNo).orElseThrow(() -> new AccountNotFoundException(accountNo + "계좌를 찾을 수 없습니다"));
     }
 
 }
