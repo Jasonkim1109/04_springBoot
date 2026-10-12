@@ -6,5 +6,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountService {
 
+    // 모든 계좌를 리턴
+    public List<Account> findAll() {
+        return AccountRepository.findAll();
+    }
 
 }
