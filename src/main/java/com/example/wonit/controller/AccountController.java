@@ -27,7 +27,7 @@ public class AccountController {
     }
 
     // 특정 계좌번호의 세부 정보를 조회  localhost:8080/api/accounts/1002-345-678901
-//    @GetMapping("/{accountNo}")
-//    public
+    @GetMapping("/{accountNo}")
+    public
 
 }
