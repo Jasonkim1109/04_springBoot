@@ -19,5 +19,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     // PK를 단건조회 또는 모든건 조회가 아닌 경우 작성만 해주면
     List<Account> findAllByOrderByBalanceAsc();
 
-    List<Account> findByStatusLike(String status);
+    List<Account> findByStatusContains(String status);
+
+    List<Account> findByAccountTypeLike(String accountType);
 }
