@@ -1,0 +1,74 @@
+https://02-react-ct6x5bk2g-thisispaperdolls-projects.vercel.app/
+
+- 실습1: Transaction 테이블로 3tier architecture를 따르도록 Controller/Service/Repository/Model을 활용한 직접 READ API 만들어보기
+- 실습2:
+    - getTransactionByCategory
+        - 카테고리명으로 거래내역을 검색하는 API
+        - // transactions/select?category=식비
+        - 완전일치/일부일치 여부 확인해보기
+    - getTransactionByCategoryOrMemo
+        - 카테고리 또는 메모로 거래내역을 검색하는 API
+        - // transactions/select?category=식비&memo=회사
+    - getTransactionByAmount
+        - 거래내역의 최소/최대 금액으로 결제기록을 검색하는 API
+        - //    transactions/select2?minAmount=10000&maxAmount=20000
+
+
+
+    # 1. h2 db로 되돌린다
+    # 2. controller/service/dto/repository/entity에 transaction어쩌구 class를 만들고 어노테이션을 붙인다
+    # 3. 위의 요구사항을 AI한테 전달하고 API 설계를 작성한다 (변수명 등은 고정)
+    # 4. 구현
+    # 5. h2 db에 샘플 코드 insert 한다. (data.sql에서 transaction 테이블에 insert 하는 구문 주석 풀기)
+    # 6. Swagger나 Boomerang으로 테스팅 확인한다.
+    # 7. AI에게 REST API의 규칙을 따르는지, 쿼리는 효율적인지, 불필요한 코드는 없는지 등등 점검 요청
+
+
+--------------------
+# 이 파일은 들여쓰기(스페이스 2칸)가 곧 문법입니다. 탭을 쓰거나 칸이 어긋나면 앱이 뜨지 않습니다.
+# ${이름:기본값} = 환경변수가 있으면 그 값, 없으면 콜론 뒤의 기본값.
+# 원래는 비밀번호를 이 파일에 직접 쓰지 않습니다. 깃에 올라가는 순간 모두에게 공개되기 때문입니다.
+spring:
+  application:
+    name: wonit
+  datasource:
+    #   h2 database
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+#  # MySQL Database
+#      url: jdbc:mysql://${host}:3306/${database}?useSSL=false&serverTimezone=Asia/Seoul
+#      username: ${username}
+#      password: ${password}
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      # ddl-auto 옵션: create, create-drop, update, validate, none
+      # - create: 테이블을 새로 만듭니다. 기존 데이터가 삭제될 수 있습니다.
+      # - create-drop: 테이블을 만들고 애플리케이션 종료 시 제거합니다.
+      # - update: 기존 테이블 구조를 엔티티에 맞춰 변경하려고 시도합니다.
+      # - validate: 구조가 맞는지만 검사합니다.
+      # - none: 스키마 관련 자동 처리를 하지 않습니다.
+      ddl-auto: create
+      database-platform: org.hibernate.dialect.H2Dialect
+
+    show-sql: true            # 실행되는 SQL 을 콘솔에 찍는다
+    properties:
+      hibernate:
+        format_sql: true      # SQL 을 줄바꿈해서 사람이 읽기 좋게 출력한다
+
+    # Hibernate가 테이블을 생성한 후 data.sql 실행
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+
+# 한글이 들어가면 깨지는 경우들이 종종 있습니다. 개발시 처음에 꼭 확인 필요
+# .env 안에 추가한 title 환경변수를 가져와서 사용해보십시오.
+# ${변수명:기본값} = 환경변수가 있으면 그 값, 없으면 콜론 뒤의 기본값.
+app:
+  title: ${title:스프링부트 어플리케이션 3}
+
+
