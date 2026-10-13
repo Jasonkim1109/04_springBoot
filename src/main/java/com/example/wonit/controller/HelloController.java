@@ -1,5 +1,6 @@
 package com.example.wonit.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 // 라우팅 기능: 사용자의 요청(Request)을 주소줄과 매핑해서 서버에 전달하는 역할
@@ -7,9 +8,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/hello")  // localhost:8080/hello
 public class HelloController {
 
+    // application.yml 에 들에었는 app.title 의 속성값을 가져와서 bean에 등록
+    @Value("${app.title}")
+    private String appTitle;
+
     @GetMapping
     public String sayHello() {
-        return "Hello, Spring Boot!";
+        return "Hello, Spring Boot!" + appTitle;
     }
 
 //    @GetMapping("/{path}")  // localhost:8080/hello/경로변수(PathVarible)
