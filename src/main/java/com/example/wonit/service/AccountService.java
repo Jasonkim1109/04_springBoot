@@ -14,6 +14,7 @@ import java.util.Optional;
 @Service
 public class AccountService {
 
+
     @Autowired // 서로서로 연결된 bean임을 알려줍니다. 생략하면 Springboot가 넣어줌
     private AccountRepository accountRepository;
 
@@ -52,5 +53,9 @@ public class AccountService {
 
     public List<Account> findAllAccountsByBalanceAsc() {
         return accountRepository.findAllByOrderByBalanceAsc();
+    }
+
+    public List<Account> findAllAccountsByStatus(String status) {
+        return accountRepository.findByStatusLike(status);
     }
 }

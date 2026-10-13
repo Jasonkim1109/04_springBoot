@@ -1,5 +1,6 @@
 package com.example.wonit.repository;
 
+import com.example.wonit.dto.AccountResponse;
 import com.example.wonit.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     // PK를 단건조회 또는 모든건 조회가 아닌 경우 작성만 해주면
     List<Account> findAllByOrderByBalanceAsc();
+
+    List<Account> findByStatusLike(String status);
 }

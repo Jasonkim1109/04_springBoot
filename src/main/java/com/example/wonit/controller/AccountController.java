@@ -63,6 +63,11 @@ public class AccountController {
     }
 
     // status 에서 정상 / 휴면 / 지급정지 들어오면 각 상황에 맞는 계좌만 필터링
+    // localhost:8080/api/accounts/status=정상
+    @GetMapping("/{status}") // localhost:8080/api/accounts/정상 -> 같은 방식으로 값을 입력받는 함수가 2개 있음
+    public List<AccountResponse> findAllAccountsByStatus(@PathVariable String status){
+        return accountService.findAllAccountsByStatus(status).stream().map(AccountResponse::from).toList();
+    }
 
     // account_type에 적금 / 입출금 들어오면 각 상황에 맞는 계좌만 필터링
 }
