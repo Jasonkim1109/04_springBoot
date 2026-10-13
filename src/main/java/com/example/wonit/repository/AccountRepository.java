@@ -14,4 +14,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     Optional<Account> findByAccountNo(String accountNo);
 
     List<Account> findByBalanceBetween(long minBalance, long maxBalance);
+
+    // PK를 단건조회 또는 모든건 조회가 아닌 경우 작성만 해주면
+    List<Account> findAllByOrderByBalanceAsc();
 }

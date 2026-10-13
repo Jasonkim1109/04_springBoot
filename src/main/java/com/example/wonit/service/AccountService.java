@@ -1,5 +1,6 @@
 package com.example.wonit.service;
 
+import com.example.wonit.dto.AccountResponse;
 import com.example.wonit.exception.*;
 import com.example.wonit.model.Account;
 import com.example.wonit.repository.AccountRepository;
@@ -47,5 +48,9 @@ public class AccountService {
 
     public List<Account> getAccountBetweenBalance(long minBalance, long maxBalance) {
         return accountRepository.findByBalanceBetween(minBalance, maxBalance); // JPA의 규칙대로 작성한 메서드가 Hibernate에 의해 쿼리로 변환되어서 JDBC로 DB에 다녀옵니다.
+    }
+
+    public List<Account> findAllAccountsByBalanceAsc() {
+        return accountRepository.findAllByOrderByBalanceAsc();
     }
 }
