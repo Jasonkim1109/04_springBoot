@@ -80,9 +80,6 @@ public class AccountService {
                 .mapToLong(Account::getBalance).sum();
     }
 
-    public List<Account> getAccountBetweenBalance(long minBalance, long maxBalance) {
-        return accountRepository.findByBalanceBetween(minBalance, maxBalance); // JPA의 규칙대로 작성한 메서드가 Hibernate에 의해 쿼리로 변환되어서 JDBC로 DB에 다녀옵니다.
-    }
 
     public List<Account> findAllAccountsByBalanceAsc() {
         return accountRepository.findAllByOrderByBalanceAsc();
@@ -97,7 +94,21 @@ public class AccountService {
     }
 
 
+    public List<Account> getAccountBetweenBalance(long minBalance, long maxBalance) {
+        log.debug("Repository 잔액 조회 시작: minBalance={}, maxBalance={}",
+                minBalance, maxBalance);
+
+        List<Account> accounts =
+                accountRepository.findByBalanceBetween(minBalance, maxBalance);
+
+        log.debug("Repository 잔액 조회 완료: resultCount={}", accounts.size());
+        return accounts;
+    }
+
     public Account createAccount(AccountCreateRequest request) {
+        log.debug("계좌 생성 검증 시작: customerId={}, accountType={}",
+                request.customerId(), request.accountType());
+
         if (request.customerId() == null || request.customerId() <= 0) {
             throw new InvalidAccountRequestException("올바른 customerId가 필요합니다.");
         }
@@ -114,9 +125,15 @@ public class AccountService {
                     .substring(0, 20);
         } while (accountRepository.existsByAccountNo(accountNo));
 
-        return accountRepository.save(
+        log.debug("계좌 저장 시작: customerId={}, accountType={}",
+                request.customerId(), request.accountType());
+
+        Account account = accountRepository.save(
                 Account.open(request.customerId(), accountNo, request.accountType())
         );
+
+        log.debug("계좌 저장 완료: accountId={}", account.getAccountId());
+        return account;
     }
 
 }

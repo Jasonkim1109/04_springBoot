@@ -58,9 +58,33 @@ public class AccountController {
 //    }
 
     // @RequestBody : 숨기고 싶은 정보, 주소줄에 전달하기에 너무 긴 값들을 Body에 싣고 전달하는 방법
+    /**
+     * 새 계좌를 개설합니다.
+     *
+     * <p>요청 예시:
+     * <pre>
+     * POST /api/accounts
+     * Content-Type: application/json
+     * {"customerId": 1, "accountType": "적금"}
+     * </pre>
+     *
+     * <p>계좌번호, 초기 잔액, 상태는 서버에서 설정합니다. 계좌 ID는
+     * {@code Account}의 IDENTITY 전략으로 DB가 생성합니다.
+     * H2에서 시드 데이터가 {@code account_id} 1, 2, 3을 사용한다면,
+     * 시드 INSERT 이후 다음 ID가 4가 되도록 설정해야 기본 키 충돌을 방지할 수 있습니다.
+     *
+     * @param request 개설할 고객 ID와 계좌 종류
+     * @return 생성된 계좌 정보
+     */
     @PostMapping
     public AccountResponse createAccount(@RequestBody AccountCreateRequest request) {
+        log.debug("계좌 개설 요청: customerId={}, accountType={}",
+                request.customerId(), request.accountType());
+
         Account account = accountService.createAccount(request);
+
+        log.debug("계좌 개설 응답: accountId={}, accountType={}",
+                account.getAccountId(), account.getAccountType());
         return AccountResponse.from(account);
     }
 
@@ -100,9 +124,26 @@ public class AccountController {
     // min~ max balance 사이의 계좌 정보를 검색
     // http://localhost:8080/api/accounts/balance?minBalance=500000&maxBalance=1300000
     // 동작은 정상적으로 하겠지만 빈 배열이 출력됩니다
+
+    /**
+     * 지정한 최소 잔액과 최대 잔액 사이의 계좌를 조회합니다.
+     *
+     * <p>요청 예시:
+     * <pre>
+     * GET /api/accounts/balance?minBalance=500000&amp;maxBalance=1300000
+     * </pre>
+     *
+     * <p>경계값을 포함하여 조회합니다. Service에 전달할 때도 반드시
+     * {@code minBalance}를 먼저, {@code maxBalance}를 나중에 전달해야 합니다.
+     * 순서를 바꾸면 검색 조건이 뒤집혀 결과가 비어 있을 수 있습니다.
+     *
+     * @param minBalance 조회할 최소 잔액
+     * @param maxBalance 조회할 최대 잔액
+     * @return 잔액이 지정 범위에 포함되는 계좌 목록
+     */
     @GetMapping("/balance")
     public List<Account> getAccountBetweenBalance(@RequestParam long minBalance, @RequestParam long maxBalance) {
-        return accountService.getAccountBetweenBalance(maxBalance, minBalance); // 파라미터 순서 바꿈
+        return accountService.getAccountBetweenBalance(minBalance, maxBalance); // 파라미터 순서 바꿈
     }
 
     // balance 순서대로 작은 금액에서 큰 금액 순서로 모든 계좌 조회

@@ -90,20 +90,30 @@ server:
 오후 4시 30분까지 디버깅연습
 
 
-   1. @Postmapping 메서드 넘겼는데 왜 500번 에러가 터지는지
+   1.  AccountController.java의 아래 메서드
+   @PostMapping
+   public AccountResponse createAccount(@RequestBody AccountCreateRequest request) {
+       Account account = accountService.createAccount(request);
+       return AccountResponse.from(account);
+   }
+   @Postmapping 메서드에 DB에 이미 들어있는
+   {
+     "customerId": 1,
+     "accountType": "적금"
+   }
+   라는 값을 RequestBody로 넣었는데 왜 500번 에러가 터지는지
 
-   2.
-  AccountController.java
+   2. AccountController.java의 아래 메서드
 
-  // min~ max balance 사이의 계좌 정보를 검색
+    // min~ max balance 사이의 계좌 정보를 검색
     // http://localhost:8080/api/accounts/balance?minBalance=500000&maxBalance=1300000
-    // 동작은 정상적으로 하겠지만 빈 배열이 출력됩니다
+
     @GetMapping("/balance")
     public List<Account> getAccountBetweenBalance(@RequestParam long minBalance, @RequestParam long maxBalance) {
         return accountService.getAccountBetweenBalance(maxBalance, minBalance); // 파라미터 순서 바꿈
     }
 
-
+---
 
    **🔍 디버깅 루틴 7단계**
 
