@@ -1,5 +1,6 @@
 package com.example.wonit.controller;
 
+import com.example.wonit.dto.AccountCreateRequest;
 import com.example.wonit.dto.AccountResponse;
 import com.example.wonit.model.Account;
 import com.example.wonit.service.AccountService;
@@ -32,22 +33,31 @@ public class AccountController {
         return accountService.findAll().stream().map(AccountResponse::from).toList();
     }
 
+//    // @RequestBody : 숨기고 싶은 정보, 주소줄에 전달하기에 너무 긴 값들을 Body에 싣고 전달하는 방법
+//    // ResponseEntity : 응답코드를 구체적으로 넘겨주기 위한 스프링부트의 Wrapper 클래서
+//    @PostMapping
+//    public ResponseEntity<AccountResponse> createAccount(
+//            @RequestBody AccountCreateRequest request
+//    ) {
+//        Account account = accountService.createAccount(request);
+//
+//        // 새로 발급받은 {accountNo}로 주소를 돌려서 호출하는 부분
+//        URI location = ServletUriComponentsBuilder
+//                .fromCurrentContextPath()
+//                .path("/api/accounts/{accountNo}")
+//                .buildAndExpand(account.getAccountNo())
+//                .toUri();
+//
+//        return ResponseEntity
+//                .created(location)
+//                .body(AccountResponse.from(account));
+//    }
+
     // @RequestBody : 숨기고 싶은 정보, 주소줄에 전달하기에 너무 긴 값들을 Body에 싣고 전달하는 방법
     @PostMapping
-    public ResponseEntity<AccountResponse> createAccount(
-            @RequestBody AccountCreateRequest request
-    ) {
+    public AccountResponse createAccount(@RequestBody AccountCreateRequest request) {
         Account account = accountService.createAccount(request);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .path("/api/accounts/{accountNo}")
-                .buildAndExpand(account.getAccountNo())
-                .toUri();
-
-        return ResponseEntity
-                .created(location)
-                .body(AccountResponse.from(account));
+        return AccountResponse.from(account);
     }
 
     // 특정 계좌번호의 세부 정보를 조회  localhost:8080/api/accounts/1002-345-678901
