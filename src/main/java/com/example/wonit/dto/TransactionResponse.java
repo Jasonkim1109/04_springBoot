@@ -1,5 +1,10 @@
 package com.example.wonit.dto;
 
+import com.example.wonit.model.Transaction;
+
+import java.time.LocalDateTime;
+
+
 /*
 화면에 실제로 필요한 내용들을 구분해서 service와 controller 사이에서 주고받음
 
@@ -11,5 +16,30 @@ amount bigint
 tx_datetime datetime
 
  */
-public record TransactionResponse(String counterparty, String txType, String category, String memo, long amount, String datetime) {
+
+import com.example.wonit.model.Transaction;
+import java.time.LocalDateTime;
+
+public record TransactionResponse(
+        String txType,
+        long amount,
+        String category,
+        String memo,
+        String counterparty,
+        LocalDateTime txDatetime
+) {
+    public static TransactionResponse from(Transaction transaction) {
+        return new TransactionResponse(
+                transaction.getTxId(),
+                transaction.getAccountId(),
+                transaction.getTransferId(),
+                transaction.getTxType(),
+                transaction.getAmount(),
+                transaction.getBalanceAfter(),
+                transaction.getCategory(),
+                transaction.getMemo(),
+                transaction.getCounterparty(),
+                transaction.getTxDatetime()
+        );
+    }
 }
