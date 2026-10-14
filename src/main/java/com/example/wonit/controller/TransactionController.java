@@ -1,6 +1,7 @@
 package com.example.wonit.controller;
 
 import com.example.wonit.dto.TransactionResponse;
+import com.example.wonit.model.Transaction;
 import com.example.wonit.service.TransactionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;

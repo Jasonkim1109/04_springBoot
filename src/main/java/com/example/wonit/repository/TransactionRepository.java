@@ -15,6 +15,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     List<Transaction> findByCategoryOrderByTxDatetimeDescTxIdDesc(String category);
 
+    // JPQL: 쿼리를 하이버네이트가 만들었는데 동작이 비효율적이거나 JPA의 규칙으로 만들기 어려운 쿼리인 경우
+    // 직접 입력값만 함수 시그니처로 정의해놓고 위에 해당 변수들을 받아서 사용할 쿼리를 작성해줍니다.
+
     @Query("""
             select t from Transaction t
             where (:category is not null and t.category = :category)
