@@ -35,11 +35,16 @@ public class AccountService {
 
     // 모든 계좌를 리턴
     public List<Account> findAll() {
+
+        // 코드1
         List<Account> accounts =  accountRepository.findAll();
+
         // 로깅을 위해서 객체를 안에서 만들어 놓고
         log.info("전체 계좌 조회 건수 출력={}", accounts.size());
         log.info("전체 계좌 조회 건수 개별 출력={}", accounts.toString());
         // 리턴함
+
+        // 코드3: 로그는 return이 일어나기 전에 보통 찍습니다.
         return accounts;
     }
 

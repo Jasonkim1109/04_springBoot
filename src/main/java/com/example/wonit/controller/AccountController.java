@@ -98,10 +98,11 @@ public class AccountController {
     }
 
     // min~ max balance 사이의 계좌 정보를 검색
-    // http://localhost:8080/api/accounts/balance?minBalance=500000&maxBalance=1000000
+    // http://localhost:8080/api/accounts/balance?minBalance=500000&maxBalance=1300000
+    // 동작은 정상적으로 하겠지만 빈 배열이 출력됩니다
     @GetMapping("/balance")
     public List<Account> getAccountBetweenBalance(@RequestParam long minBalance, @RequestParam long maxBalance) {
-        return accountService.getAccountBetweenBalance(minBalance, maxBalance);
+        return accountService.getAccountBetweenBalance(maxBalance, minBalance); // 파라미터 순서 바꿈
     }
 
     // balance 순서대로 작은 금액에서 큰 금액 순서로 모든 계좌 조회
