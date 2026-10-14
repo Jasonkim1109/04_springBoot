@@ -15,6 +15,7 @@ import com.example.wonit.exception.*;
 import com.example.wonit.model.Account;
 import com.example.wonit.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j // 로그를 이 클래스에서 사용하겠다라는 어노테이션
 // Controller와만 통신하며 요청에 대한 실제 로직을 담당
 @Service
 @RequiredArgsConstructor
@@ -33,7 +35,12 @@ public class AccountService {
 
     // 모든 계좌를 리턴
     public List<Account> findAll() {
-        return accountRepository.findAll();
+        List<Account> accounts =  accountRepository.findAll();
+        // 로깅을 위해서 객체를 안에서 만들어 놓고
+        log.info("전체 계좌 조회 건수 출력={}", accounts.size());
+        log.info("전체 계좌 조회 건수 개별 출력={}", accounts.toString());
+        // 리턴함
+        return accounts;
     }
 
     // 하나의 계좌 정보를 repo에서 받아서 리턴하거나 NPE을 막아주는 함수
@@ -51,6 +58,7 @@ public class AccountService {
      * @return Account
      */
     public Account getAccount(String accountNo) {
+        log.info("계좌 조회={}", accountNo);
         return findOne(accountNo).orElseThrow(() -> new AccountNotFoundException(accountNo + "계좌를 찾을 수 없습니다"));
     }
 
