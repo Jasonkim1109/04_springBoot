@@ -30,12 +30,8 @@ public record TransactionResponse(
 ) {
     public static TransactionResponse from(Transaction transaction) {
         return new TransactionResponse(
-                transaction.getTxId(),
-                transaction.getAccountId(),
-                transaction.getTransferId(),
                 transaction.getTxType(),
                 transaction.getAmount(),
-                transaction.getBalanceAfter(),
                 transaction.getCategory(),
                 transaction.getMemo(),
                 transaction.getCounterparty(),
