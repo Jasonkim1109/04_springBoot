@@ -1,6 +1,8 @@
 package com.example.wonit.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
@@ -9,6 +11,7 @@ import lombok.Data;
 public class Account {
 
     @Id // Primary Key(고유값을 의미하는 컬럼)을 지정해줘야 이 컬럼을 기반으로 쿼리들이 만들어집니다.
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountId;
     private Integer customerId;
     private String accountNo;

@@ -28,7 +28,7 @@ public class TransactionController {
                 .toList();
     }
 
-    @GetMapping("/select")
+    @GetMapping("/select") //
     public List<TransactionResponse> select(
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String memo

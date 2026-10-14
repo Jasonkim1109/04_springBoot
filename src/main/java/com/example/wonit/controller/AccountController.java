@@ -32,6 +32,23 @@ public class AccountController {
         return accountService.findAll().stream().map(AccountResponse::from).toList();
     }
 
+    // @RequestBody : 숨기고 싶은 정보, 주소줄에 전달하기에 너무 긴 값들을 Body에 싣고 전달하는 방법
+    @PostMapping
+    public ResponseEntity<AccountResponse> createAccount(
+            @RequestBody AccountCreateRequest request
+    ) {
+        Account account = accountService.createAccount(request);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .path("/api/accounts/{accountNo}")
+                .buildAndExpand(account.getAccountNo())
+                .toUri();
+
+        return ResponseEntity
+                .created(location)
+                .body(AccountResponse.from(account));
+    }
 
     // 특정 계좌번호의 세부 정보를 조회  localhost:8080/api/accounts/1002-345-678901
     @GetMapping("/{accountNo}")
