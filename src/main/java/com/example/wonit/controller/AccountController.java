@@ -2,15 +2,18 @@ package com.example.wonit.controller;
 
 import com.example.wonit.dto.AccountCreateRequest;
 import com.example.wonit.dto.AccountResponse;
+import com.example.wonit.exception.AccountNotFoundException;
 import com.example.wonit.model.Account;
 import com.example.wonit.service.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @Tag(name = "swagger 테스트 API", description = "swagger 테스트를 진행하는 API")
 @RestController
 @RequestMapping("/api/accounts") // localhost:8080/api/accounts
@@ -61,9 +64,20 @@ public class AccountController {
     }
 
     // 특정 계좌번호의 세부 정보를 조회  localhost:8080/api/accounts/1002-345-678901
+    /**
+     * 계좌번호로 계좌 하나를 찾는다.
+     * @param accountNo 찾을 계좌번호 (예: 1002-345-112233)
+     * @return 찾은 계좌
+     * @throws AccountNotFoundException 그런 계좌가 없을 때
+     */
     @GetMapping("/{accountNo}")
     public AccountResponse findOne(@PathVariable("accountNo") String accountNo){
     // public Account findOne(@PathVariable("accountNo") String accountNo){
+        log.trace("trace level의 로그 - 자잘함");
+        log.debug("debug level의 로그 - 개발자가 flow 따라갈 수 있는 수준의 로그");
+        log.info("info level의 로그 - 사용자나 시스템의 의미있는 내용을 담은 로그, 실제 운영환경에는 info 이상만 수집");
+        log.warn("warn level의 로그 - 현재는 문제 없지만 앞으로 문제가 될 수 있는 상황에 대한 경고");
+        log.error("error level의 로그 - 치명적인 로그");
         return AccountResponse.from(accountService.getAccount(accountNo));
     }
 

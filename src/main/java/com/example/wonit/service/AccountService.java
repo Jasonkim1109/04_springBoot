@@ -1,3 +1,12 @@
+/**
+ * JavaDoc - 함수나 클래스에 대한 설명을 적어놓으면
+ */
+
+// 한 줄 주석
+
+/*
+여러 줄 주석
+ */
 package com.example.wonit.service;
 
 import com.example.wonit.dto.AccountCreateRequest;
@@ -5,6 +14,7 @@ import com.example.wonit.dto.AccountResponse;
 import com.example.wonit.exception.*;
 import com.example.wonit.model.Account;
 import com.example.wonit.repository.AccountRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +24,12 @@ import java.util.Optional;
 
 // Controller와만 통신하며 요청에 대한 실제 로직을 담당
 @Service
+@RequiredArgsConstructor
 public class AccountService {
 
 
     @Autowired // 서로서로 연결된 bean임을 알려줍니다. 생략하면 Springboot가 넣어줌
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
     // 모든 계좌를 리턴
     public List<Account> findAll() {
@@ -32,6 +43,13 @@ public class AccountService {
 
 
     // 하나의 계좌 정보를 리턴 -> 받아서 Account 자료형으로 받어나 예외를 일으키는 함수
+
+    /**
+     * Controller에 특정 계좌번호의 검색 결과 단건을 반환한다.
+     *
+     * @param accountNo
+     * @return Account
+     */
     public Account getAccount(String accountNo) {
         return findOne(accountNo).orElseThrow(() -> new AccountNotFoundException(accountNo + "계좌를 찾을 수 없습니다"));
     }
