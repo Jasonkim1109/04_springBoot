@@ -53,3 +53,6 @@ logging:
 
   file:
     name: logs/wonit.log
+
+server:
+  port: 8081

@@ -2337,3 +2337,74 @@ Caused by: java.lang.ClassNotFoundException: com.example.wonit.service.AccountSe
 2026-10-14T17:01:44.305+09:00  WARN 16336 --- [wonit] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
 2026-10-14T17:01:44.306+09:00  WARN 16336 --- [wonit] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
 2026-10-14T17:01:44.306+09:00  INFO 16336 --- [wonit] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-10-15T09:08:26.766+09:00  INFO 14092 --- [wonit] [restartedMain] com.example.wonit.WonitApplication       : Starting WonitApplication using Java 21.0.12.1 with PID 14092 (C:\ITStudy\04_java\wonitGit\build\classes\java\main started by yeonji in C:\ITStudy\04_java\wonitGit)
+2026-10-15T09:08:26.768+09:00 DEBUG 14092 --- [wonit] [restartedMain] com.example.wonit.WonitApplication       : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-15T09:08:26.768+09:00  INFO 14092 --- [wonit] [restartedMain] com.example.wonit.WonitApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-10-15T09:08:26.798+09:00  INFO 14092 --- [wonit] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-15T09:08:26.798+09:00  INFO 14092 --- [wonit] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-15T09:08:27.553+09:00  INFO 14092 --- [wonit] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-15T09:08:27.583+09:00  INFO 14092 --- [wonit] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 2 JPA repository interfaces.
+2026-10-15T09:08:28.038+09:00  INFO 14092 --- [wonit] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8081 (http)
+2026-10-15T09:08:28.048+09:00  INFO 14092 --- [wonit] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-15T09:08:28.048+09:00  INFO 14092 --- [wonit] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-15T09:08:28.077+09:00  INFO 14092 --- [wonit] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1279 ms
+2026-10-15T09:08:28.240+09:00  INFO 14092 --- [wonit] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-15T09:08:28.308+09:00  INFO 14092 --- [wonit] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-15T09:08:28.649+09:00  INFO 14092 --- [wonit] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-15T09:08:28.679+09:00  INFO 14092 --- [wonit] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-15T09:08:28.791+09:00  INFO 14092 --- [wonit] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-10-15T09:08:28.792+09:00  INFO 14092 --- [wonit] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-15T09:08:28.831+09:00  INFO 14092 --- [wonit] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-15T09:08:29.515+09:00  INFO 14092 --- [wonit] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-15T09:08:29.542+09:00 DEBUG 14092 --- [wonit] [restartedMain] org.hibernate.SQL                        : 
+    drop table if exists account cascade 
+2026-10-15T09:08:29.543+09:00 DEBUG 14092 --- [wonit] [restartedMain] org.hibernate.SQL                        : 
+    drop table if exists transaction cascade 
+2026-10-15T09:08:29.546+09:00 DEBUG 14092 --- [wonit] [restartedMain] org.hibernate.SQL                        : 
+    create table account (
+        account_id integer generated by default as identity,
+        customer_id integer,
+        balance bigint not null,
+        account_no varchar(255),
+        account_type varchar(255),
+        status varchar(255),
+        primary key (account_id)
+    )
+2026-10-15T09:08:29.553+09:00 DEBUG 14092 --- [wonit] [restartedMain] org.hibernate.SQL                        : 
+    create table transaction (
+        account_id integer not null,
+        amount bigint not null,
+        balance_after bigint not null,
+        transfer_id bigint,
+        tx_datetime timestamp(6) not null,
+        tx_id bigint generated by default as identity,
+        tx_type varchar(10) not null,
+        category varchar(20),
+        counterparty varchar(50),
+        memo varchar(100),
+        primary key (tx_id)
+    )
+2026-10-15T09:08:29.557+09:00  INFO 14092 --- [wonit] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-15T09:08:29.611+09:00  INFO 14092 --- [wonit] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-15T09:08:30.402+09:00  WARN 14092 --- [wonit] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-15T09:08:30.828+09:00  INFO 14092 --- [wonit] [restartedMain] o.s.b.h.a.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2026-10-15T09:08:30.878+09:00  INFO 14092 --- [wonit] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-10-15T09:08:30.932+09:00  INFO 14092 --- [wonit] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8081 (http) with context path '/'
+2026-10-15T09:08:30.938+09:00  INFO 14092 --- [wonit] [restartedMain] com.example.wonit.WonitApplication       : Started WonitApplication in 4.653 seconds (process running for 5.544)
+2026-10-15T09:08:30.943+09:00  WARN 14092 --- [wonit] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-15T09:08:30.944+09:00  WARN 14092 --- [wonit] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-15T09:08:31.389+09:00  INFO 14092 --- [wonit] [RMI TCP Connection(2)-172.21.32.12] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-15T09:08:31.390+09:00  INFO 14092 --- [wonit] [RMI TCP Connection(2)-172.21.32.12] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-15T09:08:31.392+09:00  INFO 14092 --- [wonit] [RMI TCP Connection(2)-172.21.32.12] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-10-15T09:10:01.569+09:00  INFO 14092 --- [wonit] [http-nio-8081-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 719 ms
